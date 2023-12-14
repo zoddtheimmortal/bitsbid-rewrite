@@ -1,2 +1,2 @@
-# bitsbid-rewrite
+# BITSBID-Rewrite
 Bidding Website for the course CSF213 OOP
