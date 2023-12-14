@@ -6,16 +6,19 @@ import {
   StackDivider,
   Avatar,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 import client from "../api/client";
 import { useEffect, useState } from "react";
+import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
 
 const Navbar = () => {
   const supabase = client();
 
   const navigate = useNavigate();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const [user, setUser] = useState({});
 
@@ -33,7 +36,7 @@ const Navbar = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <HStack paddingY={1} align={"center"}>
         <Box pos={"left"}>
           <Text fontSize={"3xl"} as={"kbd"}>
@@ -47,9 +50,14 @@ const Navbar = () => {
             src={user.picture}
             onClick={() => navigate("/user")}
           />
-          <Button colorScheme="yellow">Products</Button>
+          <Button colorScheme="yellow" onClick={() => navigate("/products")}>
+            Products
+          </Button>
           <Button colorScheme="yellow" onClick={() => signOut()}>
             Sign Out
+          </Button>
+          <Button onClick={toggleColorMode}>
+            {colorMode === "light" ? <MdOutlineDarkMode /> : <MdDarkMode />}
           </Button>
         </HStack>
       </HStack>
