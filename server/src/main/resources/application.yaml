@@ -1,0 +1,33 @@
+supabase:
+  url: ${https://epyibkwvsqycyqueopcb.supabase.co}
+  anon: ${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVweWlia3d2c3F5Y3lxdWVvcGNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI1NDM5NTYsImV4cCI6MjAxODExOTk1Nn0.4PVTcoTgpQkWogfRmoCLPUXyS8MbScVtiZf1QIAvSOQ}
+  jwt_secret: ${6I+jodxMEsIsGSKJS+EZI8v2PR32CXPjByhiEytfWz2EH9OnzrehyQZn/HBYcRmtI75NwCjDRsJbViKqCMCVjQ==}
+spring:
+  application:
+    name: Demo
+  main:
+    banner-mode: "off"
+  datasource:
+    url: ${jdbc:postgresql://db.epyibkwvsqycyqueopcb.supabase.co:5432/postgres?user=postgres&password=[alokdesai262004]}
+    username: ${postgres}
+    password: ${alokdesai262004}
+    driverClassName: org.postgresql.Driver
+  thymeleaf:
+    prefix: classpath:/public/
+  jpa:
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgresSQLDialect
+        ddl-auto: validate
+        jdbc:
+          lob:
+            non_contextual_creation: true
+      #show-sql: true
+server:
+  error:
+    whitelabel:
+      enabled: true
+    include-stacktrace: always
+  address: localhost
+  port: ${PORT:8080}
