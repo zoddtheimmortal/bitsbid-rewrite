@@ -14,7 +14,6 @@ const Products = () => {
   return (
     <div>
       <Navbar />
-      Product Page
       <Box>
         <HStack>
           <Input placeholder="Search Products" marginY={3} />

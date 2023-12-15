@@ -24,6 +24,12 @@ import {
   FormLabel,
   Input,
   ModalFooter,
+  Tab,
+  Tabs,
+  TabList,
+  TabIndicator,
+  TabPanels,
+  TabPanel,
 } from "@chakra-ui/react";
 import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
@@ -63,8 +69,7 @@ const Dashboard = () => {
       <div>
         <Navbar />
         {Object.keys(user) !== 0 ? (
-          <div>
-            <>Dashboard</>
+          <div className="m-2 mt-4">
             {/* <div>{JSON.stringify(user)}</div> */}
             <Box borderWidth="1px" borderRadius="lg">
               <div className="grid md:grid-cols-2 sm:grid-cols-1 m-2 p-6 gap-2">
@@ -113,7 +118,7 @@ const Dashboard = () => {
                         </ModalBody>
 
                         <ModalFooter>
-                          <Button colorScheme="blue" mr={3}>
+                          <Button colorScheme="yellow" mr={3}>
                             Add
                           </Button>
                           <Button onClick={onClose}>Cancel</Button>
@@ -123,6 +128,24 @@ const Dashboard = () => {
                   </VStack>
                 </div>
               </div>
+            </Box>
+            <Box margin={2} marginTop={3}>
+              <Tabs variant={"unstyled"}>
+                <TabList>
+                  <Tab>My Products</Tab>
+                  <Tab>My Purchases</Tab>
+                </TabList>
+                <TabIndicator
+                  mt="-1.5px"
+                  height="2px"
+                  bg="yellow.300"
+                  borderRadius="1px"
+                />
+                <TabPanels>
+                  <TabPanel>My Products</TabPanel>
+                  <TabPanel>My Purchases</TabPanel>
+                </TabPanels>
+              </Tabs>
             </Box>
           </div>
         ) : (
