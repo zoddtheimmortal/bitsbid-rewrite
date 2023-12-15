@@ -19,11 +19,11 @@ import java.util.Date;
 @Setter
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     private Long userid;
     private String name;
-    private String desc;
+    private String description;
     private Long buyPrice;
     private Long currentPrice;
     private Long firstBid;
@@ -42,4 +42,10 @@ public class Item {
     @DateTimeFormat(pattern = "yy-MM-dd hh:mm:ss")
     private Date dateCreated=new Date(new Date().getTime());
 
+    public Item(Long userid, String name, String description, String img) {
+        this.userid = userid;
+        this.name = name;
+        this.description = description;
+        this.img = img;
+    }
 }
