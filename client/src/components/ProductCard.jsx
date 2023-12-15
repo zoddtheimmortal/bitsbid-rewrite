@@ -1,18 +1,31 @@
-import { Box, Badge, Image } from "@chakra-ui/react";
+import { Box, Badge, Image, Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 function ProductCard() {
   const property = {
+    id: 3,
     imageUrl: "https://bit.ly/2Z4KKcF",
     imageAlt: "Rear view of modern home with pool",
     beds: 3,
     baths: 2,
     title: "Modern home in city center in the heart of historic Los Angeles",
-    formattedPrice: "$1,900.00",
+    formattedPrice: "1,900.00",
     isActive: true,
+  };
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/products/${property.id}`);
   };
 
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box
+      maxW="sm"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      onClick={handleClick}
+    >
       <Image src={property.imageUrl} alt={property.imageAlt} />
 
       <Box p="6">
@@ -49,25 +62,11 @@ function ProductCard() {
         </Box>
 
         <Box>
-          {property.formattedPrice}
+          BC {property.formattedPrice}
           <Box as="span" color="gray.600" fontSize="sm">
             / wk
           </Box>
         </Box>
-
-        {/* <Box display="flex" mt="2" alignItems="center">
-          {Array(5)
-            .fill("")
-            .map((_, i) => (
-              <StarIcon
-                key={i}
-                color={i < property.rating ? "teal.500" : "gray.300"}
-              />
-            ))}
-          <Box as="span" ml="2" color="gray.600" fontSize="sm">
-            {property.reviewCount} reviews
-          </Box>
-        </Box> */}
       </Box>
     </Box>
   );
