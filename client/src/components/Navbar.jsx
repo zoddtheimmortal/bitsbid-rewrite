@@ -7,6 +7,7 @@ import {
   Avatar,
   Text,
   useColorMode,
+  Tooltip,
 } from "@chakra-ui/react";
 import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
@@ -45,11 +46,14 @@ const Navbar = () => {
         </Box>
         <Spacer />
         <HStack divider={<StackDivider border={"gray.200"} />}>
-          <Avatar
-            size={"md"}
-            src={user.picture}
-            onClick={() => navigate("/user")}
-          />
+          <Tooltip hasArrow label="Dashboard" bg="gray.300" color="black">
+            <Avatar
+              size={"md"}
+              src={user.picture}
+              onClick={() => navigate("/user")}
+              className="hover:scale-105"
+            />
+          </Tooltip>
           <Button colorScheme="yellow" onClick={() => navigate("/products")}>
             Products
           </Button>
