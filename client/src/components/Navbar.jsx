@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import client from "../api/client";
 import { useEffect, useState } from "react";
 import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
+import ProductService from "../api/product.service";
 
 const Navbar = () => {
 	const supabase = client();

@@ -16,13 +16,23 @@ import {
   useToast,
   Spinner,
   Divider,
+  Card,
+  CardBody,
+  CardFooter,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
 } from "@chakra-ui/react";
 import client from "../api/client";
+import { parse } from "postcss";
+import { ChevronRightIcon } from "@chakra-ui/icons";
+import Timer from "../components/Timer";
 
 const ProductPage = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
+  const [bid, setBid] = useState(0);
   const supabase = client();
 
   const [item, setItem] = useState({
@@ -55,7 +65,7 @@ const ProductPage = () => {
     if (status) {
       toast({
         title: "Bid Placed.",
-        description: `Bid For ${item.formattedPrice} BC Has Been Placed.`,
+        description: `Bid For ${bid} BC Has Been Placed.`,
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -72,11 +82,27 @@ const ProductPage = () => {
   };
 
   if (loading) {
-    return <Spinner />;
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   } else {
     return (
       <div>
         <Navbar />
+        <Breadcrumb
+          spacing="8px"
+          separator={<ChevronRightIcon color="gray.500" />}
+        >
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/products">Products</BreadcrumbLink>
+          </BreadcrumbItem>
+
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="#">{item.name}</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
         <SimpleGrid columns={{ sm: 1, md: 2 }} marginTop={2} gap={4}>
           <Box>
             <Image
@@ -93,23 +119,41 @@ const ProductPage = () => {
             <Text>
               <span className="text-xl">{item.description}</span>
             </Text>
-            <Button colorScheme="yellow">TIMER</Button>
-            <Text marginTop={2}>
-              <span>Asking Price: {item.formattedPrice}</span>
-            </Text>
-            <Text>
-              <span>Current Price: {item.formattedPrice}</span>
-            </Text>
-            <NumberInput step={1} min={item.formattedPrice} marginTop={4}>
-              <NumberInputField placeholder="Bid Amount" />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-            <Button colorScheme="yellow" onClick={() => handleBid()}>
-              Place Bid
-            </Button>
+            <Timer deadline="2023-12-31T23:40:48" active={true} />
+            <Card width={"sm"}>
+              <CardBody>
+                <Text marginTop={2}>
+                  <span className="font-semibold">Asking Price: </span>
+                  <span>{item.formattedPrice}</span>
+                </Text>
+                <Text>
+                  <span className="font-semibold">Current Price: </span>
+                  <span>{item.formattedPrice}</span>
+                </Text>
+              </CardBody>
+              <Divider />
+              <CardFooter>
+                <VStack>
+                  <NumberInput
+                    step={1}
+                    min={item.formattedPrice}
+                    marginTop={4}
+                    onChange={(value) => {
+                      setBid(value);
+                    }}
+                  >
+                    <NumberInputField placeholder="Bid Amount" />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                  <Button colorScheme="yellow" onClick={() => handleBid()}>
+                    Place Bid
+                  </Button>
+                </VStack>
+              </CardFooter>
+            </Card>
           </VStack>
         </SimpleGrid>
       </div>

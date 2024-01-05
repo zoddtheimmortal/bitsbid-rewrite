@@ -1,12 +1,15 @@
 package bitsbid.server.server.bid;
 
+
 import bitsbid.server.server.user.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
 
-@Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -29,7 +32,5 @@ public class Bid {
         this.user_id = user_id;
         this.item_id = item_id;
         this.time = time;
-        this.amount = amount;
-        this.email = email;
     }
 }

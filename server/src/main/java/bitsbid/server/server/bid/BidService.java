@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BidService {
@@ -26,7 +27,6 @@ public class BidService {
         this.itemRepository = itemRepository;
         this.userRepository = userRepository;
     }
-
     public List<Bid> showAllBids(){
         return bidRepository.findAll();
     }
@@ -88,5 +88,17 @@ public class BidService {
         return item;
     }
 
-    
+
+    public List<Bid> showItemBids(Long itemId){
+        List<Bid> allBids=bidRepository.findAll();
+        List<Bid> itemBids=new ArrayList<>();
+
+        for(Bid bid:allBids){
+            if(Objects.equals(bid.getItem_id(), itemId)){
+                itemBids.add(bid);
+            }
+        }
+
+        return itemBids;
+    }
 }
