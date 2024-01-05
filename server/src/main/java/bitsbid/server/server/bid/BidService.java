@@ -88,6 +88,21 @@ public class BidService {
         return item;
     }
 
+    public Bid addNewBid(Bid bid, Long user_id,Long item_id){
+        Item item=itemRepository.findById(item_id).get();
+        item.setHasBids(true);
+        User user=userRepository.findById(user_id).orElse(null);
+        if(user!=null){
+            //make wallet for user
+        }
+        return null;
+    }
+
+    public Item killAuction(Long id){
+        //make wallet first
+        return null;
+    }
+
 
     public List<Bid> showItemBids(Long itemId){
         List<Bid> allBids=bidRepository.findAll();
@@ -100,5 +115,16 @@ public class BidService {
         }
 
         return itemBids;
+    }
+
+    public Bid deleteBid(Long id){
+        Bid bid=bidRepository.findById(id).get();
+        try{
+            bidRepository.deleteById(id);
+            return bid;
+        }catch (Exception e){
+            //add logs later
+            return null;
+        }
     }
 }
