@@ -54,7 +54,7 @@ function ProductCard({ item }) {
               </Badge>
             )}
             <Badge borderRadius={"full"} px="2">
-              Ends on {""}
+              Ends on {item.ends}
             </Badge>
           </Box>
 
@@ -69,13 +69,16 @@ function ProductCard({ item }) {
             {item.name}
           </Box>
 
-          <Box fontWeight="" as="h4" lineHeight="tight" noOfLines={1}>
+          <Box fontWeight="bold" as="h4" lineHeight="tight" noOfLines={1}>
             {item.title}
           </Box>
 
-          <Box fontWeight={""}>
+          <Box fontWeight={"thin"} noOfLines={2}>
+            {item.description}
+          </Box>
+
+          <Box fontWeight={"semibold"}>
             {item.current_price ? item.current_price : 0} BC
-            <Box as="span" color="gray.600" fontSize="sm"></Box>
           </Box>
         </Box>
       </Box>

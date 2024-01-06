@@ -1,14 +1,9 @@
 package bitsbid.server.server.user;
 
+import bitsbid.server.server.wallet.Wallet;
 import com.github.javafaker.Faker;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Getter
@@ -16,22 +11,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
+@Data
 public class User {
-
     @Id
-    @GeneratedValue
-    private long id;
-    private String fullName;
     private String email;
+    private String fullName;
     private String fakeName;
     private String pictureUrl;
 
-    public User(long id, String fullName, String email, String pictureUrl) {
+    @OneToOne(cascade = CascadeType.ALL)
+    private Wallet wallet;
+
+    public User(String email, String fullName, String pictureUrl) {
         Faker faker=new Faker();
-        this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.pictureUrl = pictureUrl;
+        this.wallet=new Wallet(5000L);
         this.fakeName=faker.name().firstName()+" "+faker.name().lastName();
     }
 }

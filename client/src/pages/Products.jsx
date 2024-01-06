@@ -21,7 +21,7 @@ const Products = () => {
     setLoading(true);
     const res = await ProductService.getAllProducts();
     setItems(res);
-    console.log(res);
+    // console.log(res);
     setLoading(false);
   };
 
