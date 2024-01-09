@@ -27,11 +27,10 @@ public class Bid {
     @JoinColumn(name = "email",insertable = false,updatable = false)
     User user;
 
-    public Bid(Long item_id, Timestamp time, Long amount, String email, User user) {
+    public Bid(Long item_id, Timestamp time, Long amount, String email) {
         this.item_id = item_id;
         this.time = time;
         this.amount = amount;
         this.email = email;
-        this.user = user;
     }
 }

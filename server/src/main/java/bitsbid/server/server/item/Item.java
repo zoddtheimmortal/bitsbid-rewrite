@@ -19,7 +19,7 @@ public class Item {
     @Id
     @GeneratedValue
     private Long id;
-    private Long userid;
+    private String email;
     private String name;
     private String description;
     private Long buyPrice;
@@ -31,7 +31,7 @@ public class Item {
     private boolean boughtFlag;
     private boolean hasImages;
     private boolean hasBids;
-    private Long soldTo;
+    private String soldTo;
     Timestamp Started;
     Timestamp Ends;
 
@@ -40,8 +40,8 @@ public class Item {
     @DateTimeFormat(pattern = "yy-MM-dd hh:mm:ss")
     private Date dateCreated=new Date(new Date().getTime());
 
-    public Item(Long userid, String name, String description, String img) {
-        this.userid = userid;
+    public Item(String email, String name, String description, String img) {
+        this.email = email;
         this.name = name;
         this.description = description;
         this.img = img;
