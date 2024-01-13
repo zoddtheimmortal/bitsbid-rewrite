@@ -27,6 +27,7 @@ import client from "../api/client";
 import { parse } from "postcss";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import Timer from "../components/Timer";
+import ProductService from "../api/product.service";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -35,18 +36,7 @@ const ProductPage = () => {
   const [bid, setBid] = useState(0);
   const supabase = client();
 
-  const [item, setItem] = useState({
-    id: 3,
-    imageUrl: "https://bit.ly/2Z4KKcF",
-    imageAlt: "Rear view of modern home with pool",
-    beds: 3,
-    baths: 2,
-    name: "Modern home",
-    description:
-      "Modern home in city center in the heart of historic Los Angeles",
-    formattedPrice: 1900,
-    isActive: true,
-  });
+  const [item, setItem] = useState({});
   const status = true;
   const toast = useToast();
 
@@ -57,8 +47,18 @@ const ProductPage = () => {
       setUser(data.session.user.user_metadata);
       setLoading(false);
     }
+
+    async function getInitData(id) {
+      setLoading(true);
+      const data = await ProductService.getProductUsingId(id);
+      setItem(...data);
+      setLoading(false);
+    }
+
     getUserInfo();
+    getInitData(id);
   }, []);
+
 
   const handleBid = () => {
     console.log("Clicked");
@@ -106,8 +106,8 @@ const ProductPage = () => {
         <SimpleGrid columns={{ sm: 1, md: 2 }} marginTop={2} gap={4}>
           <Box>
             <Image
-              src={item.imageUrl}
-              alt={item.imageAlt}
+              src={item.img}
+              alt={item.description}
               borderRadius={"lg"}
             />
           </Box>
@@ -119,16 +119,16 @@ const ProductPage = () => {
             <Text>
               <span className="text-xl">{item.description}</span>
             </Text>
-            <Timer deadline="2023-12-31T23:40:48" active={true} />
+            <Timer deadline={item.ends} active={item.is_active} />:
             <Card width={"sm"}>
               <CardBody>
                 <Text marginTop={2}>
                   <span className="font-semibold">Asking Price: </span>
-                  <span>{item.formattedPrice}</span>
+                  <span>{item.buy_price}</span>
                 </Text>
                 <Text>
                   <span className="font-semibold">Current Price: </span>
-                  <span>{item.formattedPrice}</span>
+                  <span>{item.current_price}</span>
                 </Text>
               </CardBody>
               <Divider />
@@ -136,7 +136,7 @@ const ProductPage = () => {
                 <VStack>
                   <NumberInput
                     step={1}
-                    min={item.formattedPrice}
+                    min={item.current_price}
                     marginTop={4}
                     onChange={(value) => {
                       setBid(value);

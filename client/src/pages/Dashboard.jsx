@@ -35,6 +35,7 @@ import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 import client from "../api/client";
 import ProductService from "../api/product.service";
+import UserService from "../api/user.service";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -52,10 +53,9 @@ const Dashboard = () => {
     async function getUserInfo() {
       setLoading(true);
       const { data, error } = await supabase.auth.getSession();
-      console.log(data.session.user.user_metadata);
       const res = await ProductService.getAllProducts();
-      console.log(res);
       setUser(data.session.user.user_metadata);
+      const set = await UserService.createOrUpdateUser(data.session.user.user_metadata);
       setLoading(false);
     }
     getUserInfo();

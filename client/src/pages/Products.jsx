@@ -45,7 +45,7 @@ const Products = () => {
         </Box>
         <SimpleGrid columns={{ sm: 1, md: 3 }} gap={3}>
           {items.map((item) => {
-            return <ProductCard item={item} />;
+            return <ProductCard item={item} key={item.id} />;
           })}
         </SimpleGrid>
       </div>

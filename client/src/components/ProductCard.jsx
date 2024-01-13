@@ -2,6 +2,7 @@ import { Box, Badge, Image, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Timer from "./Timer";
+import dayjs from "dayjs";
 
 function ProductCard({ item }) {
   const [loading, setLoading] = useState(false); //change to true for actual application
@@ -54,7 +55,7 @@ function ProductCard({ item }) {
               </Badge>
             )}
             <Badge borderRadius={"full"} px="2">
-              Ends on {item.ends}
+              Ends on {dayjs(item.ends).format("HH:mm:ss DD MMM YYYY")}
             </Badge>
           </Box>
 
